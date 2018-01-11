@@ -1,0 +1,118 @@
+---
+layout: page
+title: Brainwave
+date: 2011-08-22 10:23:00.000000000 +05:30
+type: page
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories: []
+tags: []
+meta:
+  _publicize_pending: '1'
+  blogger_blog: experi-blog-n.blogspot.com
+  blogger_permalink: "/p/brainwave.html"
+  blogger_author: linux1
+  _edit_last: '26412816'
+  _wp_page_template: default
+  original_post_id: '70'
+  _wp_old_slug: '70'
+  _oembed_db7fc32cc1b1c5fefc1212d3466974ba: "{{unknown}}"
+  _oembed_875e38215a59f97422ee0a91c59c16a0: "{{unknown}}"
+  _oembed_0f4146d193fc01d0264621cfb20be89d: "{{unknown}}"
+  _oembed_a395bbad268fa2807a864822bcc266c1: "{{unknown}}"
+  _oembed_906003f73311ccd7e5d5120348a7389b: "{{unknown}}"
+author:
+  login: linuxexperi
+  email: linux1@zoho.com
+  display_name: Raja Jamwal
+  first_name: ''
+  last_name: ''
+---
+<div dir="ltr" style="text-align:left;">
+<div style="background-color:#d4d4d4;font-size:small;border-color:#808080;border-style:dashed;border-width:1px;">Following applies to version 0.1 alpha of the program, stereo headphones are necessary</div>
+<p>I wanted to create a binaural beat generator program, so here's the, brainwave, which is pretty advance CUI based binaural beat generator program. <a href="http://en.wikipedia.org/wiki/Binaural_beats">Here's binaural beat intro at wikipedia.</a>[<a href="http://en.wikipedia.org/wiki/Binaural_beats">http://en.wikipedia.org/wiki/Binaural_beats</a>]</p>
+<p><!--more--><a name="more"></a><br />
+<strong>Download link</strong> <a href="http://code.google.com/p/brainwave-binaural/downloads/detail?name=brainwave-0.1.py.tar&amp;can=2&amp;q=">http://code.google.com/p/brainwave-binaural/downloads/detail?name=brainwave-0.1.py.tar&amp;can;=2&amp;q;=</a></p>
+<p>Brainwave is entirely written is python and depends on your gstreamer installation. Brainwave can be executed from terminal or scripts, and accepts a array of parameters, which are detailed below, please note that none of the parameters are compulsory. When nothing is specified, a test session will play as follows</p>
+<p><code><br />
+--left &lt;num in range audible freq&gt;:</code></p>
+<p>specify the left channel frequency</p>
+<p>--left-volume &lt;num in range 0--100&gt;:</p>
+<p>specify the volume of the above specified left frequency</p>
+<p>--right &lt;num in range audible freq&gt; :</p>
+<p>specify the right channel frequency</p>
+<p>--right-volume &lt;num in range 0--100&gt;:</p>
+<p>specify the volume of the above specified</p>
+<p>--time</p>
+<p>&lt;num&gt;</p>
+<p>:</p>
+<p>duration to run in second</p>
+<p>--wave &lt;string from {delta, theta, alpha, beta, gamma, mu}&gt; :</p>
+<p>paramets --left and --right are overwritten, if wave parameter is provided, though --left-volume and --right-volume are still applicable. The wave specified will be generated, which will produce binaural effect of frequency as detailed below</p>
+<p>["delta", 0, 4],["theta", 4, 8],["alpha", 8, 13],["beta", 13, 30],["gamma", 30, 100],["mu", 8, 13]</p>
+<p>the binaural wave will be of frequency of the mean of the 2 number provided after wave type, the binaural wave will be produced on base frequency (default is 400Hz)</p>
+<p>--base &lt;num in range audible freq&gt;:</p>
+<p>specify the base frequency to be used in the --wave paramter, as detailed above</p>
+<p>--bg &lt;complete path to audio file&gt;:</p>
+<p>specify the complete to audio file, that should be used as background audio file, all audio formats are supported, whatever your gstreamer installation is able to play. The audio will be looped during the complete brainentrainment session.</p>
+<p>--bg-volume &lt;num in range 0--100&gt;:</p>
+<p>specify the volume of the background audio file, mentioned above.</p>
+<p>--overlay-frequency &lt;&lt;num freq;num volume;num pan in range -100--100&gt;,........&gt;:</p>
+<p>specify additional freq to play, specify the n comma separated frequency and their description that should be played simultaneously during the session. eg --overlay-frequency "300;100;100,308;80;-100", this will play freq 300Hz at vol 100% at right speaker, likewise freq 308 will be played at vol 80% on left speaker, simultaneously, continuously during session.</p>
+<p>Note: pan value of 0 denotes the center position.</p>
+<p>Note: colon is used as separator</p>
+<p>--overlay-audio &lt;&lt;string path;num volume&gt;,........&gt;:</p>
+<p>specify additional audio file to played simultaneously during session,</p>
+<p>Note: colon is used as separator</p>
+<p>--sequential-audio &lt;&lt;string path;num volume&gt;,........&gt;</p>
+<p>specify n audio files that should be played in sequence, one after another, upon playback of all the files specified, the n files with be sequentially looped, till session is completed.</p>
+<p>&nbsp;</p>
+<p><strong>Example command </strong></p>
+<p><span style="font-size:x-small;">./brainwave.py --bg /home/raja/Downloads/stream-3.mp3 --time 600 --left-volume 50 --right-volume 50 --bg-volume 100 --sequential-audio "/home/raja/Downloads/waterfall-1.mp3;100, /home/raja/Downloads/stream-3.mp3;100" --overlay-frequency "100;100;100" --overlay-audio "/home/raja/Downloads/313060_ambient_bells_de_goeie.mp3;100"</span></p>
+<p>The above command isn't meant for practical purpose, it's purely for illustrative purpose</p>
+<p><strong>Soundeffects</strong></p>
+<p>if you want to be sound effects used in above specified command, <a href="http://code.google.com/p/brainwave-binaural/downloads/detail?name=soundeffect.tar&amp;can=2&amp;q=">download it from here</a> [<a href="http://code.google.com/p/brainwave-binaural/downloads/detail?name=soundeffect.tar&amp;can=2&amp;q=">http://code.google.com/p/brainwave-binaural/downloads/detail?name=soundeffect.tar&amp;can;=2&amp;q;=</a>]</p>
+<p>Note: I don't own anything from that archive, I am not its author.</p>
+<p><strong>Brainwaves</strong></p>
+<table class="wikitable" align="center">
+<tbody>
+<tr>
+<th><span style="font-size:x-small;">Frequency range</span></th>
+<th><span style="font-size:x-small;">Name</span></th>
+<th><span style="font-size:x-small;">Usually associated with:</span></th>
+</tr>
+<tr>
+<td align="center"><span style="font-size:x-small;">&gt; 40 Hz</span></td>
+<td><span style="font-size:x-small;">Gamma waves</span></td>
+<td><span style="font-size:x-small;">Higher mental activity, including perception, problem solving, fear, and consciousness</span></td>
+</tr>
+<tr>
+<td align="center"><span style="font-size:x-small;">13–39 Hz</span></td>
+<td><span style="font-size:x-small;">Beta waves</span></td>
+<td><span style="font-size:x-small;">Active, busy or anxious thinking and active concentration, arousal, cognition, and or paranoia</span></td>
+</tr>
+<tr>
+<td align="center"><span style="font-size:x-small;">7–13 Hz</span></td>
+<td><span style="font-size:x-small;">Alpha waves</span></td>
+<td><span style="font-size:x-small;">Relaxation (while awake), pre-sleep and pre-wake drowsiness, REM sleep, Dreams</span></td>
+</tr>
+<tr>
+<td align="center"><span style="font-size:x-small;">4–7 Hz</span></td>
+<td><span style="font-size:x-small;">Theta waves</span></td>
+<td><span style="font-size:x-small;">deep meditation/relaxation, NREM sleep</span></td>
+</tr>
+<tr>
+<td align="center"><span style="font-size:x-small;">&lt; 4 Hz</span></td>
+<td><span style="font-size:x-small;">Delta waves</span></td>
+<td><span style="font-size:x-small;">Deep dreamless sleep, loss of body awareness</span></td>
+</tr>
+</tbody>
+</table>
+<p>Basic wave eg. alpha wave(for relax)</p>
+<p><span style="font-size:x-small;">./brainwave.py --wave alpha</span></p>
+<p>You can listen to this one as background while listening any music, you can change the volume of the output</p>
+<p><span style="font-size:x-small;">./brainwave.py --wave alpha --left-volume 50 --right-volume 50</span></p>
+<p>Please note that it doesn't matter what's the volume of the frequencies, There's even a theory that frequencies shouldn't be audible to user.</p>
+</div>

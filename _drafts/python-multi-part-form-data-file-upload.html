@@ -1,0 +1,82 @@
+---
+layout: post
+title: 'Python : multi-part form-data file upload'
+date: 
+type: post
+parent_id: '0'
+published: false
+password: ''
+status: draft
+categories: []
+tags: []
+meta:
+  _publicize_pending: '1'
+  _syntaxhighlighter_encoded: '1'
+  _edit_last: '26412816'
+  original_post_id: '202'
+  _wp_old_slug: '202'
+author:
+  login: linuxexperi
+  email: linux1@zoho.com
+  display_name: Raja Jamwal
+  first_name: ''
+  last_name: ''
+---
+<p>In the <a href="http://linuxexp.heliohost.org/2011/10/08/doing-a-multi-part-formdata-file-upload/" title="Doing a multi-part formdata file upload">previous post</a> I showed you the format of multi-part form data HTTP request, In this post I'll show you how to do that in python. Code shown below is copied from one of my project, modify it for your requirements.<br />
+<!--more--><br />
+[code]<br />
+def run_thread (self,filen, num_vid):</p>
+<p>	print &quot;thread&quot;</p>
+<p>	host =&quot;www.your-domain.com&quot;<br />
+	self.boundary = &quot;9afb0c26-7adf-11e0-b167-1c6f65955350&quot;</p>
+<p>	CRLF = 'rn'</p>
+<p>	bl =[]<br />
+	bl.append('--' + self.boundary)<br />
+        bl.append('Content-Disposition: form-data; name=&quot;fname&quot;')<br />
+        bl.append('rn')<br />
+        bl.append(&quot;Raja&quot;)<br />
+	bl.append('--' + self.boundary)<br />
+        bl.append('Content-Disposition: form-data; name=&quot;uploadedfile&quot;; filename=&quot;%s&quot;' % (str(os.path.basename(filen))))<br />
+        bl.append('Content-Type: %s' % (str('application/octet-stream')))<br />
+        bl.append('rn')</p>
+<p>	body = CRLF.join(bl)</p>
+<p>	hl =[]<br />
+	hl.append('POST /file.php HTTP/1.1')<br />
+	hl.append('HOST: %s' % host)<br />
+	hl.append('Content-Type: multipart/form-data; boundary=%s' % self.boundary)<br />
+	fsize = os.path.getsize(filen)<br />
+	size=int(fsize)<br />
+	print int(fsize)<br />
+	hl.append('Content-Length: %s' % str(len(body)+int(fsize)+len('--' + self.boundary + '--rn'+'rn')))<br />
+	hl.append('rn')</p>
+<p>	#print &quot;Initializing..&quot;</p>
+<p>	headers = CRLF.join(hl)<br />
+	#print str(headers)+str(body)</p>
+<p>	socks = serv = socket(AF_INET, SOCK_STREAM)</p>
+<p>	serv.connect((host, 80))</p>
+<p>	serv.send(str(headers)+str(body))<br />
+	fileh = open(filen, 'rb')</p>
+<p>	while 1 and self.die==0:<br />
+		chunck = fileh.read(1024)<br />
+		#print &quot;Uploading...&quot;<br />
+		if len(chunck) == 0:<br />
+			socks.send('rn--' + self.boundary + '--rn')<br />
+    			socks.send('rn')<br />
+			if str(socks.recv(1024)).find('200 OK')==-1:<br />
+				#print &quot;Error&quot;<br />
+			else:<br />
+				#print &quot;Done&quot;<br />
+				socks.close()<br />
+				where=fileh.tell()<br />
+				done=((where*100)/size)<br />
+				#print done<br />
+				fileh.close()<br />
+	        	return False<br />
+		else:<br />
+			socks.send(chunck)<br />
+			where=fileh.tell()<br />
+			done=((where*100)/size)<br />
+			#print done<br />
+		time.sleep(0.01)<br />
+[/code]</p>
+<p>&nbsp;</p>

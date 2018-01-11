@@ -1,0 +1,59 @@
+---
+layout: post
+title: Play streaming flash videos in your favourtie video player
+date: 
+type: post
+parent_id: '0'
+published: false
+password: ''
+status: draft
+categories: []
+tags: []
+meta:
+  _publicize_pending: '1'
+  blogger_blog: experi-blog-n.blogspot.com
+  blogger_permalink: "/2011/08/play-streaming-flash-videos-in-your.html"
+  blogger_author: linux1
+  _edit_last: '26412816'
+  _syntaxhighlighter_encoded: '1'
+  original_post_id: '31'
+  _wp_old_slug: '31'
+author:
+  login: linuxexperi
+  email: linux1@zoho.com
+  display_name: Raja Jamwal
+  first_name: ''
+  last_name: ''
+---
+<div style="text-align:left;" dir="ltr">Adobe flash and linux doesn't go very well, no matter what adobe promises to deliver, the flash never delivers that in linux. No matter what's your hardware may be, you can expect totally unexpected from flash. if you are totally frustrated with flash playing in slow frame rate, crappy ways, or even full screen problems, this might be your answer, a nice side effect of this program is it allows you to copy streaming flash video to hard disk. I am quite sure this will soon become one your favorites.</div>
+<div style="text-align:left;" dir="ltr">
+<!--more--><br />
+<strike>Download link [<a href="http://flashinplayer.googlecode.com/files/flashinplayer.sh">http://flashinplayer.googlecode.com/files/flashinplayer.sh</a>]</strike><br />
+This script won't work with newer version of adobe flash player like version &gt;= 10. Since they brought down my entire account, I can't modify the script anymore. Scroll down for updated version.</p>
+<p>Download the bash script, chmod it, run it, it will open flash video streaming in your browser(any browser, application that uses flash) in your player, default is totem that comes with ubuntu, otherwise you can specify your player in argument.eg.<br />
+flashinplayer.sh vlc</p>
+<p>Do not close the page in which flash video is streaming while you are watching it in your player. Doing so will abort flash video retrieval.</p>
+<p>For adobe flashplayer version &gt;= 10, never tested it with previous version, I hope it should probably work with previous version as well, If you did a test with previous version, let me know.</p>
+<p>[code]<br />
+#!/bin/bash<br />
+#<br />
+# FlashInPlayer<br />
+#<br />
+# Will iterate through all open copies of flashplayer and<br />
+# will open them in totem or specified player</p>
+<p>echo &quot;FlashInPlayer (C) Raja, &lt;linux1@zoho.com&gt;&quot;</p>
+<p>pids=`eval pgrep -f plugin`</p>
+<p>for pid in $pids<br />
+do<br />
+output=$(lsof -p $pid | grep '/tmp/Flash[^ ]*')</p>
+<p>IFS=$'n'<br />
+for line in $output; do<br />
+filename=`echo $line | awk '{print &quot;/proc/&quot; $2 &quot;/fd/&quot; $4}' | sed 's/[rwu]$//'`</p>
+<p>if [ -n &quot;$1&quot; ];then<br />
+$1 $filename<br />
+else<br />
+totem $filename<br />
+fi</p>
+<p>done<br />
+done<br />
+[/code]</p></div>

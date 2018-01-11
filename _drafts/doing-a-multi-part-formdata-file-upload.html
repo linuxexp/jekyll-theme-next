@@ -1,0 +1,52 @@
+---
+layout: post
+title: Doing a multi-part formdata file upload
+date: 
+type: post
+parent_id: '0'
+published: false
+password: ''
+status: draft
+categories: []
+tags: []
+meta:
+  _publicize_pending: '1'
+  _edit_last: '26412816'
+  original_post_id: '196'
+  _wp_old_slug: '196'
+author:
+  login: linuxexperi
+  email: linux1@zoho.com
+  display_name: Raja Jamwal
+  first_name: ''
+  last_name: ''
+---
+<p>I needed to do a file upload to a server through a GUI desktop application and at the same time update a GUI element about progress so this is how it is done, I thought to share the idea with you.<!--more--></p>
+<pre>POST /path-to-your-file.php HTTP/1.1
+Host: www.my-domain.com
+Content-Type: multipart/form-data; boundary=9afb0c26-7adf-11e0-b167-1c6f65955350
+Content-Length: (length of every thing after this in bytes including new line characters)
+
+--9afb0c26-7adf-11e0-b167-1c6f65955350
+Content-Disposition: form-data; name="name of a post variable"
+
+Variable data
+--9afb0c26-7adf-11e0-b167-1c6f65955350
+Content-Disposition: form-data; name="name of another post variable"
+
+Another variable data
+--9afb0c26-7adf-11e0-b167-1c6f65955350
+Content-Disposition: form-data; name="name of file variable"; filename="name of the file"
+Content-Type: (application/octet-stream or mime type)
+
+our binary data
+--9afb0c26-7adf-11e0-b167-1c6f65955350--</pre>
+<p>There's nothing much to it, you send a POST HTTP request to server in the form shown above</p>
+<p>Note</p>
+<ul>
+<li>boundary should any unique text, that determines the boundary of the parts</li>
+<li>- - determines that this isn't the last part, - - boundary - - determines the last part/ end of request</li>
+<li>Blank lines in the above request aren't meant of code cleanliness, they should be there, A blank line must be there between the content headers and the content</li>
+<li>After end of the request, aka after - - boundary - -, there should be another blank line</li>
+<li>The EOL character is 'rn' according official HTTP documentation, but all major servers are also happy with a single newline character 'n'</li>
+</ul>

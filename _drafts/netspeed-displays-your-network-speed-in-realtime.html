@@ -1,0 +1,35 @@
+---
+layout: post
+title: 'NetSpeed : Displays your network speed in realtime'
+date: 
+type: post
+parent_id: '0'
+published: false
+password: ''
+status: draft
+categories: []
+tags: []
+meta:
+  _publicize_pending: '1'
+  blogger_blog: experi-blog-n.blogspot.com
+  blogger_permalink: "/2011/08/netspeed-displays-your-network-speed-in.html"
+  blogger_author: linux1
+  _edit_last: '26412816'
+  original_post_id: '53'
+  _wp_old_slug: '53'
+author:
+  login: linuxexperi
+  email: linux1@zoho.com
+  display_name: Raja Jamwal
+  first_name: ''
+  last_name: ''
+---
+<div style="text-align:left;" dir="ltr">The content of this post is actually a re-post, since I deleted my old blog. So here it is a simple, tiny gtk based utility for displaying realtime network speed of all network interfaces in realtime.. The application counts the received bytes on each network interface.. The application puts no load over bandwidth, you could have it running (tip: right click and keep it on top), it'll display the network speed at which you are receiving data from network.<!--more--><a name="more"></a></p>
+<p><strong>Sample binary( for Ubuntu 9.04)</strong></p>
+<p><a href="http://code.google.com/p/net-speed/downloads/list">http://code.google.com/p/net-speed/downloads/list</a></p>
+<p><strong>Sources </strong></p>
+<p><a href="http://code.google.com/p/net-speed/source/browse/NetSpeed.c">http://code.google.com/p/net-speed/source/browse/NetSpeed.c</a></p>
+<p><strong>How to compile</strong></p>
+<p>Download the source and compile it with the following command-line</p>
+<pre class="prettyprint lang-c"><span class="com"> g++ NetSpeed.c -o NetSpeed `pkg-config --cflags --libs gtk+-2.0` </span></pre>
+</div>

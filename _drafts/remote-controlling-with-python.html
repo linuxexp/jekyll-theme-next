@@ -1,0 +1,86 @@
+---
+layout: post
+title: Simple remote controlling with python
+date: 
+type: post
+parent_id: '0'
+published: false
+password: ''
+status: draft
+categories: []
+tags: []
+meta:
+  _publicize_pending: '1'
+  _edit_last: '26412816'
+  _syntaxhighlighter_encoded: '1'
+  original_post_id: '259'
+  _wp_old_slug: '259'
+author:
+  login: linuxexperi
+  email: linux1@zoho.com
+  display_name: Raja Jamwal
+  first_name: ''
+  last_name: ''
+---
+<p>Knowing the diversity of python, this script should run on many platforms, and mobile devices, Remsys is a small python script that creates a server on host on port 80, dishes nice mobile friendly webpage to control the system.<!--more--></p>
+<p>Note</p>
+<ul>
+<li>People behind a firewall or router need to forward port 80 to your host device.</li>
+<li>People already running  a server on port 80 needs to stop that, for i.e if it's apache2 type in terminal "sudo /etc/init.d/apache2 stop"</li>
+</ul>
+<p>The script needs to be executed with root privileges, so be careful about the command you ask it to do. The HTTP response returned is strict XHTML and mobile compatible, therefore you can access the server from your mobile.</p>
+<pre>HTTP/1.1 200 OK
+Content-Type: application/xhtml+xml</pre>
+<p>[code]<br />
+#<br />
+# Remsys : tiny python script to remote control the device<br />
+#<br />
+# Copyright (C) 2011  Raja Jamwal &lt;linux1@zoho.com&gt;<br />
+#<br />
+# This program is free software: you can redistribute it and/or modify<br />
+# it under the terms of the GNU General Public License as published by<br />
+# the Free Software Foundation, either version 3 of the License, or<br />
+# (at your option) any later version.<br />
+#</p>
+<p>from socket import *<br />
+import os</p>
+<p>print &quot;nnn[...RemSys Controller Server...]&quot;</p>
+<p>serv = None</p>
+<p>HOST= ''<br />
+PORT = 80<br />
+ADDR = (HOST, PORT)<br />
+BUFSIZE = 4000</p>
+<p>serv = socket(AF_INET, SOCK_STREAM)</p>
+<p>serv.bind((ADDR))<br />
+serv.listen(65535)</p>
+<p>while(1):<br />
+ print 'listening....'<br />
+ conn,addr =serv.accept()<br />
+ print '[connected]'<br />
+ inet_get = conn.recv(4000)</p>
+<p> #HTTP header parser<br />
+ #definate part, no expection<br />
+ lstn = inet_get.split('n')<br />
+ reqst = lstn[0]<br />
+ get_what = inet_get.split(' ')[1]</p>
+<p> cmd_output = None;</p>
+<p> if len(get_what)&gt;2:<br />
+ 	parameter = get_what.split('?')<br />
+	if len(parameter)&gt;1:<br />
+	 parameter=parameter[1]<br />
+	 print parameter<br />
+ 	 for attr in parameter.split('&amp;'):<br />
+		var = attr.split('=')<br />
+		if len(var)==2:<br />
+			if var[0] == &quot;cmd&quot;:<br />
+				cmd = var[1].replace('+', ' ')<br />
+				print var[0]+'     '+cmd<br />
+				fin,fout = os.popen4(cmd)<br />
+				cmd_output = fout.read()</p>
+<p> print get_what<br />
+ print inet_get</p>
+<p> body='&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Strict//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd&quot;&gt;  &lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot; xml:lang=&quot;en&quot; lang=&quot;en&quot;&gt;&lt;div style=&quot;background-color:#E8EEFA;padding:4px;&quot;&gt;RNET RemSys&lt;br /&gt;'+os.getcwd()+'&lt;br /&gt;&lt;form method=&quot;get&quot; action=&quot;pro.cmd&quot;&gt;&lt;input type=&quot;text&quot; name=&quot;cmd&quot;&gt;&lt;/input&gt;&lt;input type=&quot;submit&quot;&gt;&lt;/input&gt;&lt;/form&gt;&lt;br /&gt;'+str(cmd_output)+'&lt;/div&gt;&lt;/html&gt;'</p>
+<p> conn.send('HTTP/1.1 200 OKnContent-Type: application/xhtml+xmlnContent-Length: '+str(len(body))+'nn'+str(body))<br />
+ conn.close()</p>
+<p>[/code]</p>
+<p>&nbsp;</p>

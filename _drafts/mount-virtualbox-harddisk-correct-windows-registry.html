@@ -1,0 +1,46 @@
+---
+layout: post
+title: Mounting VirtualBox Harddisk & Correcting Windows Registry
+date: 
+type: post
+parent_id: '0'
+published: false
+password: ''
+status: draft
+categories: []
+tags: []
+meta:
+  _publicize_pending: '1'
+  _edit_last: '26412816'
+  original_post_id: '232'
+  _wp_old_slug: '232'
+author:
+  login: linuxexperi
+  email: linux1@zoho.com
+  display_name: Raja Jamwal
+  first_name: ''
+  last_name: ''
+---
+<p>I was doing some developing work in windows which was running inside virtualbox, It was about manipulating critical system registry. As a result of incorrect settings, I wasn't able to login. So I needed to revert the settings, I thought to share the Idea here.<!--more--></p>
+<p><strong>Mount VirtualBox Harddisk</strong></p>
+<p>First we need the qemu, you may know it for its processor emulation and stuff.</p>
+<ul>
+<li>sudo apt-get install qemu-nbd</li>
+<li>modprobe nbd</li>
+<li>qemu-nbd -c /dev/nbd0 &lt;harddisk-image-vdi-file&gt;</li>
+<li>mount /dev/nbd0p1 /mnt</li>
+</ul>
+<p>Now the harddisk is available as normal storage mount</p>
+<p><strong>Editing registry from linux with chntpw</strong></p>
+<p>for example to edit HKLMSoftwareMicrosoftWindows NTCurrentVersionWinlogon, key "Userinit" value</p>
+<ul>
+<li>chntpw -e /mnt/WINDOWS/system32/config/&lt;System, Software...&gt;</li>
+<li>cd MicrosoftWindows NTCurrentVersionWinlogon</li>
+<li>ed Userinit</li>
+</ul>
+<p>now change the value to whatever you want then</p>
+<ul>
+<li>q</li>
+<li>yes</li>
+</ul>
+<pre></pre>
