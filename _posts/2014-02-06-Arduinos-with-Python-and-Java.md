@@ -1,5 +1,5 @@
 ---
-title: Playing with arduinos, in Python & Java
+title: Arduinos with Python and Java
 date: 2014-02-06 18:29:33.000000000 +05:30
 ---
 Arduinos are great for prototyping stuff, but for each firmware change you've to re-flash the Arduino. With RAAP, pyArduino and JArduino, you can quickly and easily automate a arduino connected with computer using programming language of your choice, currently I have written supporting packages for python and java.
